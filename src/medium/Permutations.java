@@ -4,6 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Permutations {
+
+
+    //dfs
+    public List<List<Integer>> permute1(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(nums == null || nums.length == 0) return res;
+
+        dfs(nums, res, new ArrayList<>());
+        return res;
+    }
+
+    private void dfs(int[] nums, List res, ArrayList<Integer> sub) {
+        if(sub.size() == nums.length) res.add(new ArrayList<>(sub));
+        else {
+            for(int i = 0; i < nums.length; i++) {
+                if(sub.contains(nums[i])) continue;
+                sub.add(nums[i]);
+                dfs(nums, res, sub);
+                sub.remove(sub.size() - 1);
+            }
+        }
+    }
+
+
+
+
     //可以递归，2,3,4,5，。。。
     //先确定第一位， 再加上剩余部分的排列，太慢了O(n!)
     //backtracking
