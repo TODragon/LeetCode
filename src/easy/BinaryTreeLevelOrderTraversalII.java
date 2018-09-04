@@ -10,14 +10,28 @@ public class BinaryTreeLevelOrderTraversalII {
         TreeNode right;
         TreeNode(int x) {val = x;}
     }
-
+    //bfs queue
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        if(root == null) return null;
+        List<List<Integer>> res = new ArrayList<>();
+        if(root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
 
-        ArrayList<Integer> sub = new ArrayList<>();
-        List<List<Integer>> solution = new ArrayList<>();
+        while (queue.size() != 0) {
+            List<Integer> sub = new ArrayList<>();
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode temp = queue.poll();
+                sub.add(temp.val);
+                if(temp.left != null) queue.offer(temp.left);
+                if(temp.right != null) queue.offer(temp.right);
+                size--;
+            }
+            res.add(sub);
+        }
 
-        return solution;
+        Collections.reverse(res);
+        return res;
     }
 
 
